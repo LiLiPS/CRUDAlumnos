@@ -51,7 +51,7 @@ public class SaveServlet extends HttpServlet {
 		int status = AlumnoDAO.save(e);
 		if (status > 0) {
 			out.print("<p>Guardado exitosamente!</p>");
-			request.getRequestDispatcher("index.html").include(request, response);
+			request.getRequestDispatcher("crearAlumno.html").include(request, response);
 		} else {
 			out.println("Lo sentimos! Ocurrió un error");
 		}

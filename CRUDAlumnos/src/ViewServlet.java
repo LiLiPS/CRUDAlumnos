@@ -10,11 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
-/**
- * Servlet implementation class ViewServlet
- */
 @WebServlet("/ViewServlet")
 public class ViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +21,6 @@ public class ViewServlet extends HttpServlet {
      */
     public ViewServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -34,9 +29,12 @@ public class ViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");  
         PrintWriter out=response.getWriter();  
-        out.println("<a href='index.html'>Agregar nuevo alumno</a>");
+        String n=request.getParameter("name");  
+        out.print("Bienvenido "+n);
+        out.println("<a href='crearAlumno.html'>Agregar nuevo alumno</a>");
         out.println("<form action='http://localhost:9090/CRUDAlumnos/ViewServlet' method='GET'> ");
-        out.println("<h4>Buscar un alumno</h4><input type='text' name='numeroC'><input type='submit' name='buscar' value='buscar'>");
+        out.println("<h4>Buscar un alumno</h4>");
+        out.println("<input type='text' placeholder='Número de control' name='numeroC'><input type='submit' name='buscar' value='buscar'>");
         out.println(" <input type='hidden' name='sts' value='buscar'> ");
         out.println("</form>");
         out.println("<h1>Lista de alumnos</h1>"); 
