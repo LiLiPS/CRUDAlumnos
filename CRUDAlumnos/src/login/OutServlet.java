@@ -29,16 +29,26 @@ public class OutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");  
-        PrintWriter out=response.getWriter();  
+        PrintWriter out=response.getWriter();   
+        
+        Cookie cks[] = request.getCookies();
+		if (cks != null) {
+			String name = cks[0].getValue();
+			if (!name.equals("") || name != null) {
+				request.getRequestDispatcher("link.html").include(request, response); 
+		        Cookie ck=new Cookie("name","");  
+		        ck.setMaxAge(0); 
+		        response.addCookie(ck);  
+		          
+		        out.print("Has cerrado sesión exitosamente!");
+			}
+		} else {
+			out.print("Por favor, primero ingresa a tu cuenta!");
+			request.getRequestDispatcher("login.html").include(request, response);
+		}
+		out.close();
           
-          
-        request.getRequestDispatcher("link.html").include(request, response);  
-          
-        Cookie ck=new Cookie("name","");  
-        ck.setMaxAge(0);  
-        response.addCookie(ck);  
-          
-        out.print("Has cerrado sesión exitosamente!");
+        
 	}
 
 	/**

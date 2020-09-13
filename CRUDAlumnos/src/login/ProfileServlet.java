@@ -29,14 +29,14 @@ public class ProfileServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
-		request.getRequestDispatcher("link.html").include(request, response);
-
 		Cookie ck[] = request.getCookies();
+
 		if (ck != null) {
 			String name = ck[0].getValue();
 			if (!name.equals("") || name != null) {
+				request.getRequestDispatcher("link.html").include(request, response);
 				out.print("<b>Bienvenido a tu perfil</b>");
-				out.print("<br>Bienvenido, " + name);
+				out.print("<br>Bienvenid@, " + name);
 			}
 		} else {
 			out.print("Por favor, primero ingresa a tu cuenta!");

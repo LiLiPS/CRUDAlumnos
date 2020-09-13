@@ -35,18 +35,16 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");  
-	    PrintWriter out = response.getWriter();  
-	    
-	    request.getRequestDispatcher("link.html").include(request, response);
+	    PrintWriter out = response.getWriter();
 	          
 	    String n=request.getParameter("name");  
 	    String p=request.getParameter("password");  
 	          
 	    if(LoginDAO.validate(n, p)){  
-	        request.getRequestDispatcher("ViewServlet").forward(request,response);  
-	        
-	        Cookie ck=new Cookie("name",n);  
+	    	Cookie ck=new Cookie("name",n);  
+	    	ck.setMaxAge(3000);
             response.addCookie(ck);
+            response.sendRedirect("ViewServlet");  
 	    }  
 	    else{  
 	        out.print("Lo sentimos, error de usuario o contraseña!");  
