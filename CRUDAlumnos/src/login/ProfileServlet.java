@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
+//import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @WebServlet("/ProfileServlet")
@@ -20,15 +21,19 @@ public class ProfileServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
-		Cookie ck[] = request.getCookies();
+		/*Cookie ck[] = request.getCookies();
 
 		if (ck != null) {
 			String name = ck[0].getValue();
-			if (!name.equals("") || name != null) {
-				request.getRequestDispatcher("link.html").include(request, response);
-				out.print("<b>Bienvenido a tu perfil</b>");
-				out.print("<br>Bienvenid@, " + name);
-			}
+			if (!name.equals("") || name != null) {*/
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			String name = (String) session.getAttribute("name");
+
+			request.getRequestDispatcher("link.html").include(request, response);
+			out.print("<b>Bienvenido a tu perfil</b>");
+			out.print("<br>Bienvenid@, " + name);
+			// }
 		} else {
 			out.print("Por favor, primero ingresa a tu cuenta!");
 			request.getRequestDispatcher("login.html").include(request, response);

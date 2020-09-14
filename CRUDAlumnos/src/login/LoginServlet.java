@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
+//import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -27,9 +28,11 @@ public class LoginServlet extends HttpServlet {
 	    String p=request.getParameter("password");  
 	          
 	    if(LoginDAO.validate(n, p)){  
-	    	Cookie ck=new Cookie("name",n);  
+	    	/*Cookie ck=new Cookie("name",n);  
 	    	ck.setMaxAge(3000);
-            response.addCookie(ck);
+            response.addCookie(ck);*/
+	    	HttpSession session=request.getSession();  
+	        session.setAttribute("name",n);
             response.sendRedirect("ViewServlet");  
 	    }  
 	    else{  
